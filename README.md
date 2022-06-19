@@ -23,9 +23,6 @@ The project comprises of:
 * A client that can send a "hello" to an account and get back the number of
   times "hello" has been sent
 
-## Translations
-- [Traditional Chinese](README_ZH_TW.md)
-- [Simplified Chinese](README_ZH_CN.md)
 
 ## Table of Contents
 - [Hello world on Solana](#hello-world-on-solana)
@@ -54,12 +51,6 @@ The project comprises of:
 
 ## Quick Start
 
-[![Open in
-Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
-
-If you decide to open in Gitpod then refer to
-[README-gitpod.md](README-gitpod.md), otherwise continue reading.
-
 The following dependencies are required to build and run this example, depending
 on your OS, they may already be installed:
 
@@ -72,38 +63,6 @@ on your OS, they may already be installed:
 If this is your first time using Rust, these [Installation
 Notes](README-installation-notes.md) might be helpful.
 
-### Configure CLI
-
-> If you're on Windows, it is recommended to use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to run these commands
-
-1. Set CLI config url to localhost cluster
-
-```bash
-solana config set --url localhost
-```
-
-2. Create CLI Keypair
-
-If this is your first time using the Solana CLI, you will need to generate a new keypair:
-
-```bash
-solana-keygen new
-```
-
-### Start local Solana cluster
-
-This example connects to a local Solana cluster by default.
-
-Start a local Solana cluster:
-```bash
-solana-test-validator
-```
-> **Note**: You may need to do some [system tuning](https://docs.solana.com/running-validator/validator-start#system-tuning) (and restart your computer) to get the validator to run
-
-Listen to transaction logs:
-```bash
-solana logs
-```
 
 ### Install npm dependencies
 
@@ -151,22 +110,6 @@ Saying hello to 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A
 Success
 ```
 
-#### Not seeing the expected output?
-
-- Ensure you've [started the local cluster](#start-local-solana-cluster),
-  [built the on-chain program](#build-the-on-chain-program) and [deployed the program to the cluster](#deploy-the-on-chain-program).
-- Inspect the program logs by running `solana logs` to see why the program failed.
-  - ```bash
-    Transaction executed in slot 5621:
-    Signature: 4pya5iyvNfAZj9sVWHzByrxdKB84uA5sCxLceBwr9UyuETX2QwnKg56MgBKWSM4breVRzHmpb1EZQXFPPmJnEtsJ
-    Status: Error processing Instruction 0: Program failed to complete
-    Log Messages:
-      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA invoke [1]
-      Program log: Hello World Rust program entrypoint
-      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA consumed 200000 of 200000 compute units
-      Program failed to complete: exceeded maximum number of instructions allowed (200000) at instruction #334
-      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA failed: Program failed to complete
-
 ### Customizing the Program
 
 To customize the example, make changes to the files under `/src`.  If you change
@@ -181,66 +124,11 @@ More information about how Solana works is available in the [Solana
 documentation](https://docs.solana.com/) and all the source code is available on
 [github](https://github.com/solana-labs/solana)
 
-Further questions? Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
-
 ## Learn about the client
 
 The client in this example is written in TypeScript using:
 - [Solana web3.js SDK](https://github.com/solana-labs/solana-web3.js)
 - [Solana web3 API](https://solana-labs.github.io/solana-web3.js)
-
-### Entrypoint
-
-The [client's
-entrypoint](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/main.ts#L13)
-does five things.
-
-### Establish a connection to the cluster
-
-The client establishes a connection with the cluster by calling
-[`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L92).
-
-### Establish an account to pay for transactions
-
-The client ensures there is an account available to pay for transactions,
-and creates one if there is not, by calling
-[`establishPayer`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L102).
-
-### Check if the helloworld on-chain program has been deployed
-
-In [`checkProgram`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L144),
-the client loads the keypair of the deployed program from `./dist/program/helloworld-keypair.json` and uses
-the public key for the keypair to fetch the program account. If the program doesn't exist, the client halts
-with an error. If the program does exist, it will create a new account with the program assigned as its owner
-to store program state (number of hello's processed).
-
-### Send a "Hello" transaction to the on-chain program
-
-The client then constructs and sends a "Hello" transaction to the program by
-calling
-[`sayHello`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L209).
-The transaction contains a single very simple instruction that primarily carries
-the public key of the helloworld program account to call and the "greeter"
-account to which the client wishes to say "Hello" to.
-
-### Query the Solana account used in the "Hello" transaction
-
-Each time the client says "Hello" to an account, the program increments a
-numerical count in the "greeter" account's data.  The client queries the
-"greeter" account's data to discover the current number of times the account has
-been greeted by calling
-[`reportGreetings`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L226).
-
-## Learn about the on-chain program
-
-The [on-chain helloworld program](/src/program-rust/Cargo.toml) is a Rust program
-compiled to [Berkeley Packet Filter
-(BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) bytecode and stored as an
-[Executable and Linkable Format (ELF) shared
-object](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format).
-
-The program is written using:
-- [Solana Rust SDK](https://github.com/solana-labs/solana/tree/master/sdk)
 
 ### Programming on Solana
 
