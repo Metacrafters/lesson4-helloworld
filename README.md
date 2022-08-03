@@ -156,23 +156,3 @@ To point back to the local cluster:
 ```bash
 solana config set --url localhost
 ```
-
-## Writing the client in Rust
-
-This example details writing the client code in typescript; however
-the Solana client program can be written in any language. For an
-example client written in Rust and an accompanying write up see [this
-repo](https://github.com/ezekiiel/simple-solana-program).
-
-## Expand your skills with advanced examples
-
-There is lots more to learn; The following examples demonstrate more advanced
-features like custom errors, advanced account handling, suggestions for data
-serialization, benchmarking, etc...
-
-- [Programming
-  Examples](https://github.com/solana-labs/solana-program-library/tree/master/examples)
-- [Token
-  Program](https://github.com/solana-labs/solana-program-library/tree/master/token)
-- [Token Swap
-  Program](https://github.com/solana-labs/solana-program-library/tree/master/token-swap)
