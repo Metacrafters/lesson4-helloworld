@@ -11,7 +11,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/client/main.ts",
-    "start-with-test-validator": "start-server-and-test 'solana-test-validator --reset --quiet' http://localhost:8899/health start",
+    "deploy-and-start": "solana program deploy dist/program/helloworld.so && ts-node src/client/main.ts",
+    "start-with-test-validator": "start-server-and-test 'solana-test-validator --reset --quiet' http://127.0.0.1:8899/health deploy-and-start",
     "lint": "eslint --ext .ts src/client/* && prettier --check \"src/client/**/*.ts\"",
     "lint:fix": "eslint --ext .ts src/client/* --fix && prettier --write \"src/client/**/*.ts\"",
     "clean": "npm run clean:program-c && npm run clean:program-rust",
